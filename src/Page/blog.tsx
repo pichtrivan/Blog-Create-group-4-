@@ -1,0 +1,11 @@
+const Blog = () => {
+    return (
+      <div className="text-center p-8">
+        <h1 className="text-4xl font-bold">Blog</h1>
+        <p className="mt-4">Read our latest posts.</p>
+      </div>
+    );
+  };
+  
+  export default Blog;
+  
