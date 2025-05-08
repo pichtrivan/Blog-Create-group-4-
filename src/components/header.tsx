@@ -26,7 +26,7 @@ const Header: React.FC = () => {
             </Link>
             <div className="hidden md:ml-6 md:flex items-center md:space-x-8">
               <Link
-                to="/home"
+                to="/"
                 onClick={closeMobileMenu}
                 className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
         <div className="md:hidden" id="mobile-menu">
           <div className="pt-2 pb-3 space-y-1">
             <Link
-              to="/home"
+              to="/"
               onClick={closeMobileMenu}
               className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
             >
