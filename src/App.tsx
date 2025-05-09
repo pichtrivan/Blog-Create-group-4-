@@ -5,20 +5,20 @@ import Footer from "./components/footer"; // Ensure correct import path for the 
 import Home from "./page/home"; // Ensure correct import path for Home page
 import About from "./page/about"; // Ensure correct import path for About page
 import Blog from "./page/blog"; // Ensure correct import path for Blog page
-import TravelStyles from "./page/contact"; // Ensure correct import path for TravelStyles page
 import Login from "./page/login"; // Ensure correct import path for Login page
+import Contact from "./page/contact";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/travel-styles" element={<TravelStyles />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <Footer />
     </Router>
   );
