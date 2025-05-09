@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col space-y-10 justify-center m-10">
+    <footer className="flex flex-col space-y-10 justify-center mt-10 bg-yellow-500">
       <nav className="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
         {["Home", "About", "Services", "Media", "Gallery", "Contact"].map(
           (item) => (
