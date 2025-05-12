@@ -5,7 +5,7 @@ import Footer from "./components/footer";
 import Home from "./page/home";
 import About from "./page/about";
 import Blog from "./page/blog";
-import TravelStyles from "./page/contact";
+import Contact from "./page/contact";
 import Login from "./page/login";
 import Sponsor from "./page/sponsor"; // ✅ Capitalized import
 
@@ -17,8 +17,8 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/travel-styles" element={<TravelStyles />} />
-        <Route path="/sponsor" element={<Sponsor />} /> {/* ✅ Capitalized usage */}
+        <Route path="/sponsor" element={<Sponsor />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />

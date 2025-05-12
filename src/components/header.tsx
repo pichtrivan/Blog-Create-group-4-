@@ -28,28 +28,35 @@ const Header: React.FC = () => {
               <Link
                 to="/"
                 onClick={closeMobileMenu}
-                className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="elative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
               >
                 Home
               </Link>
               <Link
                 to="/about"
                 onClick={closeMobileMenu}
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
               >
                 About
               </Link>
               <Link
                 to="/blog"
                 onClick={closeMobileMenu}
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="elative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
               >
                 Blog
               </Link>
               <Link
+                to="/sponsors"
+                onClick={closeMobileMenu}
+                className="elative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
+              >
+                Sponsors
+              </Link>
+              <Link
                 to="/contact"
                 onClick={closeMobileMenu}
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="elative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
               >
                 Contact
               </Link>
@@ -71,28 +78,22 @@ const Header: React.FC = () => {
               </Link>
             </div>
             <div className="flex items-center md:hidden">
-              <button
-                type="button"
-                onClick={toggleMobileMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                aria-expanded={menuOpen ? "true" : "false"}
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
+              <button onClick={toggleMobileMenu} aria-label="Toggle Menu">
+                {menuOpen ? (
+                  <img
+                    src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
+                    width="32"
+                    height="32"
+                    alt="Close menu"
                   />
-                </svg>
+                ) : (
+                  <img
+                    src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png"
+                    width="32"
+                    height="32"
+                    alt="Open menu"
+                  />
+                )}
               </button>
             </div>
           </div>
@@ -102,32 +103,39 @@ const Header: React.FC = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden" id="mobile-menu">
-          <div className="pt-2 pb-3 space-y-1">
+          <div className="ml-3  pt-2 pb-3 space-y-1">
             <Link
               to="/"
               onClick={closeMobileMenu}
-              className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              className="relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-10 after:transition-transform after:duration-300 after:origin-left"
             >
               Home
             </Link>
             <Link
               to="/about"
               onClick={closeMobileMenu}
-              className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              className="relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-10 after:transition-transform after:duration-300 after:origin-left"
             >
               About
             </Link>
             <Link
               to="/blog"
               onClick={closeMobileMenu}
-              className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              className="relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-10 after:transition-transform after:duration-300 after:origin-left"
             >
               Blog
             </Link>
             <Link
+              to="/sponsors"
+              onClick={closeMobileMenu}
+              className=" relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-10 after:transition-transform after:duration-300 after:origin-left"
+            >
+              Sponsors
+            </Link>
+            <Link
               to="/contact"
               onClick={closeMobileMenu}
-              className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+              className=" relative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-10 after:transition-transform after:duration-300 after:origin-left"
             >
               Contact
             </Link>
