@@ -1,32 +1,97 @@
 import React from 'react';
 import travelBg from '../assets/travel1.jpg';
-import blog1 from '../assets/blog1.jpg';
-import blog2 from '../assets/blog2.jpg';
-import blog3 from '../assets/blog3.jpg';
-import blog4 from '../assets/blog4.jpg';
+import img1 from '../assets/blog1.jpg';
+import img2 from '../assets/blog2.jpg';
+import img3 from '../assets/blog3.jpg';
+import img4 from '../assets/blog4.jpg';
+import africaImg from '../assets/afirka.png';
+import asiaImg from '../assets/cambodia.png';
+import europeImg from '../assets/europe.png';
+import middleEastImg from '../assets/middle.png';
+import caribbeanImg from '../assets/carben.png';
+import americasImg from '../assets/americas.png';
+import startblog from '../assets/startblog.png';
+import grow from '../assets/grow blog.png';
+import takecourse from '../assets/take a course.png';
+import Card from '../components/card';
+
+interface SectionItem {
+  name: string;
+  image: string;
+}
+
+interface SectionWithImagesProps {
+  title: string;
+  items: SectionItem[];
+}
+
+const SectionWithImages: React.FC<SectionWithImagesProps> = ({ title, items }) => (
+  <section className="py-16 bg-gray-100">
+    <div className="max-w-7xl mx-auto px-6">
+      <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="relative h-64 w-full rounded overflow-hidden group cursor-pointer shadow-lg"
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              className="h-full w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition duration-300" />
+            <h3 className="absolute inset-0 flex items-center justify-center text-white font-extrabold text-xl sm:text-2xl text-center">
+              {item.name}
+            </h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 const Home: React.FC = () => {
-  const blogPosts = [
+  const latestPosts = [
     {
-      title: 'Should You Start a Blog in 2025?',
-      image: blog1,
-      alt: 'Blogging in 2025',
+      image: img1,
+      title: "Should You Start a Blog in 2025?",
+      name: "Andrew Alexa",
+      role: "Travel Blogger",
     },
     {
-      title: 'How To Plan A Trip To Cabo San Lucas',
-      image: blog2,
-      alt: 'Trip to Cabo San Lucas',
+      image: img2,
+      title: "Trip to Cabo San Lucas",
+      name: "Maria Lopez",
+      role: "Adventure Guide",
     },
     {
-      title: 'What Makes A Good Website: 10 Must-Have Features',
-      image: blog3,
-      alt: 'Good Website Features',
+      image: img3,
+      title: "10 Must-Have Website Features",
+      name: "James King",
+      role: "Web Designer",
     },
     {
-      title: '10 Profitable Online Course Ideas for 2025',
-      image: blog4,
-      alt: 'Online Course Ideas',
+      image: img4,
+      title: "Profitable Online Course Ideas",
+      name: "Linda Chen",
+      role: "Educator & Coach",
     },
+  ];
+
+  const regions = [
+    { name: "AFRICA", image: africaImg },
+    { name: "ASIA", image: asiaImg },
+    { name: "EUROPE", image: europeImg },
+    { name: "MIDDLE EAST", image: middleEastImg },
+    { name: "THE CARIBBEAN", image: caribbeanImg },
+    { name: "THE AMERICAS", image: americasImg },
+  ];
+
+  const bloggerAdvice = [
+    { name: "START A BLOG", image: startblog },
+    { name: "GROW A BLOG", image: grow },
+    { name: "TAKE A COURSE", image: takecourse },
   ];
 
   return (
@@ -52,33 +117,24 @@ const Home: React.FC = () => {
       </section>
 
       {/* Latest Posts Section */}
-      <section className="py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12">
-            Our <span className="text-blue-500 font-bold">Latest Posts</span>
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            Our <span className="text-blue-500">Latest Posts</span>
           </h2>
-
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-            {blogPosts.map((post, index) => (
-              <div
-                key={index}
-                className="relative h-72 rounded-xl overflow-hidden shadow-md group cursor-pointer"
-              >
-                <img
-                  src={post.image}
-                  alt={post.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                  <h3 className="text-white text-lg font-semibold text-center leading-tight drop-shadow-md">
-                    {post.title}
-                  </h3>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {latestPosts.map((post, index) => (
+              <Card key={index} image={post.image} title={post.title} name={post.name} role={post.role} />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Travel Destinations Section */}
+      <SectionWithImages title="Where Do You Want To Go?" items={regions} />
+
+      {/* Advice for Bloggers Section */}
+      <SectionWithImages title="Advice for Bloggers" items={bloggerAdvice} />
     </div>
   );
 };
