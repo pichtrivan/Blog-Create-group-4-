@@ -104,14 +104,14 @@ const Home: React.FC = () => {
         <div className="w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <div className="max-w-xl text-white">
             <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight mt-20">
-              Welcome to <span className="text-yellow-400">GlobeTrotter</span>
+              Welcome to <span className="text-blue-500">GlobeTrotter</span>
             </h1>
             <p className="text-base md:text-lg mb-6 font-bold">
               Embark on unforgettable journeys. Explore hidden gems, travel tips, and stories from around the world.
             </p>
-            <button className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded hover:bg-yellow-400 transition">
-              Start Exploring
-            </button>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300">
+          Start Exploring
+        </button>
           </div>
         </div>
       </section>
