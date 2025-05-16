@@ -1,5 +1,7 @@
 import React from 'react';
 import aboutimg from '../assets/about-img.png';
+import leavesImage from '../assets/about-1.png';
+import about2 from '../assets/about-2.png';
 
 interface Post {
   title: string;
@@ -25,12 +27,12 @@ const examplePosts: Post[] = [
   },
 ];
 
-const About: React.FC = () => {
+const AboutPage: React.FC = () => {
   return (
-    <>
+    <div>
       {/* About Section */}
       <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-20 py-20 bg-white">
-        {/* Left Side - Text */}
+        {/* Left - Text */}
         <div className="lg:w-1/2 text-center lg:text-left">
           <h2 className="text-4xl font-extrabold text-[#2f487d] mb-6">ABOUT US</h2>
           <p className="text-lg text-[#2f487d] leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
@@ -43,9 +45,13 @@ const About: React.FC = () => {
           </button>
         </div>
 
-        {/* Right Side - Image with Circle Background */}
+        {/* Right - Image with Circle */}
         <div className="relative lg:w-1/2 mb-10 lg:mb-0 flex justify-center items-center">
-          <div className="absolute w-72 h-72 lg:w-96 lg:h-96 bg-pink-300 rounded-full z-0" />
+          <div
+            className="absolute w-72 h-72 lg:w-96 lg:h-96 bg-pink-300 rounded-full z-0"
+            aria-hidden="true"
+            role="presentation"
+          />
           <img
             src={aboutimg}
             alt="Illustration representing our story or mission"
@@ -57,7 +63,7 @@ const About: React.FC = () => {
       {/* Latest Posts Section */}
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl font-bold mb-8 text-center md:text-3xl">
+          <h2 id="latest-posts" className="text-2xl font-bold mb-8 text-center md:text-3xl">
             Our <span className="text-blue-500">Latest Posts</span>
           </h2>
 
@@ -84,8 +90,64 @@ const About: React.FC = () => {
           )}
         </div>
       </section>
-    </>
+      <section className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] bg-white">
+        {/* Left - Text */}
+        <div className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 leading-snug">
+            Planting and Maintaining <br /> Trees
+          </h2>
+          <p className="text-gray-700 mb-6 text-base md:text-lg leading-relaxed max-w-2xl">
+            A healthy community forest begins with careful planning, so trees are placed in areas that maximize their benefits.
+            The same goes for trees around your home or property. Planting trees in the right spots will keep your home cool in the summer
+            and tame the brutal winter wind.
+          </p>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-full w-fit shadow-md transition duration-300"
+          >
+             Start Exploring
+          </button>
+        </div>
+
+        {/* Right - Image */}
+        <div className="w-full h-64 md:h-auto">
+          <img
+            src={leavesImage}
+            alt="Planting Trees"
+            className="object-cover w-full h-full"
+          />
+        </div>
+      </section>
+
+      {/* Section 2: Image Left, Text Right */}
+      <section className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh] bg-gray-50">
+        {/* Left - Image */}
+        <div className="w-full h-64 md:h-auto">
+          <img
+            src={about2}
+            alt="Green Environment"
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+        {/* Right - Text */}
+        <div className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-gray-900 leading-snug">
+            The Power of Green Spaces
+          </h2>
+          <p className="text-gray-700 mb-6 text-base md:text-lg leading-relaxed max-w-2xl">
+            Green environments not only boost mental well-being but also reduce air pollution, improve biodiversity, and help regulate urban temperatures.
+            Our mission is to foster more of these healthy, tree-filled spaces for future generations.
+          </p>
+        <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-full w-fit shadow-md transition duration-300"
+          >
+            Start Exploring
+          </button>
+        </div>
+      </section>
+
+    </div>
   );
 };
 
-export default About;
+export default AboutPage;
