@@ -1,7 +1,5 @@
 import BlogCard from "../components/blogcard";
 import The from "../assets/b1.png";
-import The from "../assets/b1.png";
-import The from "../assets/b1.png";
 
 const blogs = [
   {
