@@ -60,6 +60,13 @@ const Header: React.FC = () => {
               >
                 Contact
               </Link>
+              <Link
+                to="/onchange"
+                onClick={closeMobileMenu}
+                className="elative hover:text-blue-600 transition duration-300 after:block after:h-0.5 after:bg-blue-600 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
+              >
+                Onchange
+              </Link>
             </div>
           </div>
           <div className="flex items-center">

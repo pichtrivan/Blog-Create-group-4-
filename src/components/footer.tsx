@@ -2,7 +2,8 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col space-y-10 justify-center mt-10 ">
+    <div>
+      <footer className="flex flex-col space-y-10 justify-center mt-10 ">
       <nav className="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
         {["Home", "About", "Services", "Media", "Gallery", "Contact"].map(
           (item) => (
@@ -34,6 +35,8 @@ const Footer: React.FC = () => {
         &copy; 2022 Company Ltd. All rights reserved.
       </p>
     </footer>
+    </div>
+    
   );
 };
 
