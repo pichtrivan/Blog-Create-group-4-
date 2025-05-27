@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,9 @@ const LoginPage = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -16,11 +20,38 @@ const LoginPage = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    setErrors({}); // Clear errors on change
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData); // Replace with login logic
+    setErrors({}); // Clear previous errors
+    try {
+      const response = await axios.post("http://localhost:1337/api/auth/local", {
+        identifier: formData.email,
+        password: formData.password,
+      });
+
+      const { jwt, user } = response.data;
+
+      if (formData.remember) {
+        localStorage.setItem("token", jwt);
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        sessionStorage.setItem("token", jwt);
+        sessionStorage.setItem("user", JSON.stringify(user));
+      }
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      console.error("Login error:", err);
+
+      // Set error messages below inputs
+      setErrors({
+        email: "Invalid email or password",
+        password: "Invalid email or password",
+      });
+    }
   };
 
   return (
@@ -42,10 +73,15 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1"
+              className={`w-full border-b py-1 focus:outline-none ${
+                errors.email ? "border-red-500" : "border-gray-300 focus:border-green-700"
+              }`}
               placeholder="Enter your email"
               required
             />
+            {errors.email && (
+              <p className="text-sm text-red-600 mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -57,7 +93,9 @@ const LoginPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1 pr-8"
+                className={`w-full border-b py-1 pr-8 focus:outline-none ${
+                  errors.password ? "border-red-500" : "border-gray-300 focus:border-green-700"
+                }`}
                 placeholder="Enter your password"
                 required
               />
@@ -69,6 +107,9 @@ const LoginPage = () => {
                 👁️
               </button>
             </div>
+            {errors.password && (
+              <p className="text-sm text-red-600 mt-1">{errors.password}</p>
+            )}
           </div>
 
           {/* Remember me */}

@@ -6,6 +6,7 @@ const RegisterPage = () => {
     fullName: "",
     email: "",
     password: "",
+    phonenumber: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -52,9 +53,9 @@ const RegisterPage = () => {
           <div>
             <label className="block text-sm mb-1">Phone</label>
             <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
+              type=" phonumber"
+              name="phonenumber"
+              value={formData.phonenumber}
               onChange={handleChange}
               className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1"
               placeholder="Enter your phone number"
