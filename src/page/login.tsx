@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import axios from "axios";
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,9 +22,28 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log(formData); // Replace with login logic
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/auth/local`,
+        {
+          identifier: formData.email,
+          password: formData.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      localStorage.setItem("token", response.data.jwt);
+      navigate("/products");
+    } catch (error) {
+      console.log(error);
+    }
+    // Handle your login logic here
+    // console.log("Logging in with:", { email, password });
   };
 
   return (
@@ -33,7 +56,7 @@ const LoginPage = () => {
           Log in to your account to continue
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
           <div>
             <label className="block text-sm mb-1">Email</label>

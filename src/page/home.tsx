@@ -1,19 +1,33 @@
-import React from 'react';
-import travelBg from '../assets/travel1.jpg';
-import img1 from '../assets/blog1.jpg';
-import img2 from '../assets/blog2.jpg';
-import img3 from '../assets/blog3.jpg';
-import img4 from '../assets/blog4.jpg';
-import africaImg from '../assets/afirka.png';
-import asiaImg from '../assets/cambodia.png';
-import europeImg from '../assets/europe.png';
-import middleEastImg from '../assets/middle.png';
-import caribbeanImg from '../assets/carben.png';
-import americasImg from '../assets/americas.png';
-import startblog from '../assets/startblog.png';
-import grow from '../assets/grow blog.png';
-import takecourse from '../assets/take a course.png';
-import Card from '../components/card';
+// src/pages/Home.tsx
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import travelBg from "../assets/travel1.jpg";
+import africaImg from "../assets/afirka.png";
+import asiaImg from "../assets/cambodia.png";
+import europeImg from "../assets/europe.png";
+import middleEastImg from "../assets/middle.png";
+import caribbeanImg from "../assets/carben.png";
+import americasImg from "../assets/americas.png";
+import startblog from "../assets/startblog.png";
+import grow from "../assets/grow blog.png";
+import takecourse from "../assets/take a course.png";
+import Card from "../components/card";
+
+interface BlogPost {
+  id: number;
+  attributes: {
+    title: string;
+    authorName: string;
+    authorRole: string;
+    image: {
+      data: {
+        attributes: {
+          url: string;
+        };
+      };
+    };
+  };
+}
 
 interface SectionItem {
   name: string;
@@ -25,7 +39,10 @@ interface SectionWithImagesProps {
   items: SectionItem[];
 }
 
-const SectionWithImages: React.FC<SectionWithImagesProps> = ({ title, items }) => (
+const SectionWithImages: React.FC<SectionWithImagesProps> = ({
+  title,
+  items,
+}) => (
   <section className="py-16 bg-gray-100">
     <div className="max-w-7xl mx-auto px-6">
       <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
@@ -52,32 +69,23 @@ const SectionWithImages: React.FC<SectionWithImagesProps> = ({ title, items }) =
 );
 
 const Home: React.FC = () => {
-  const latestPosts = [
-    {
-      image: img1,
-      title: "Should You Start a Blog in 2025?",
-      name: "Andrew Alexa",
-      role: "Travel Blogger",
-    },
-    {
-      image: img2,
-      title: "Trip to Cabo San Lucas",
-      name: "Maria Lopez",
-      role: "Adventure Guide",
-    },
-    {
-      image: img3,
-      title: "10 Must-Have Website Features",
-      name: "James King",
-      role: "Web Designer",
-    },
-    {
-      image: img4,
-      title: "Profitable Online Course Ideas",
-      name: "Linda Chen",
-      role: "Educator & Coach",
-    },
-  ];
+  const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const response = await axios.get(
+        "http://localhost:1337/api/blogs?populate=*"
+      );
+      setLatestPosts(response.data.data);
+    };
+    fetchPost();
+    // axios
+    // .get("http://localhost:1337/api/blogs?populate=*")
+    // .then((res) => setLatestPosts(res.data.data))
+    // .catch((err) => console.error("Failed to fetch blogs:", err));
+  }, []);
+
+  console.log(latestPosts, "post");
 
   const regions = [
     { name: "AFRICA", image: africaImg },
@@ -107,11 +115,12 @@ const Home: React.FC = () => {
               Welcome to <span className="text-blue-500">GlobeTrotter</span>
             </h1>
             <p className="text-base md:text-lg mb-6 font-bold">
-              Embark on unforgettable journeys. Explore hidden gems, travel tips, and stories from around the world.
+              Embark on unforgettable journeys. Explore hidden gems, travel
+              tips, and stories from around the world.
             </p>
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300">
-          Start Exploring
-        </button>
+              Start Exploring
+            </button>
           </div>
         </div>
       </section>
@@ -123,8 +132,8 @@ const Home: React.FC = () => {
             Our <span className="text-blue-500">Latest Posts</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {latestPosts.map((post, index) => (
-              <Card key={index} image={post.image} title={post.title} name={post.name} role={post.role} />
+            {latestPosts.map((post) => (
+              <Card post={post} />
             ))}
           </div>
         </div>
