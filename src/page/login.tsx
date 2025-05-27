@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,35 +26,28 @@ const LoginPage = () => {
     setErrors({}); // Clear errors on change
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
-    setErrors({}); // Clear previous errors
     try {
-      const response = await axios.post("http://localhost:1337/api/auth/local", {
-        identifier: formData.email,
-        password: formData.password,
-      });
-
-      const { jwt, user } = response.data;
-
-      if (formData.remember) {
-        localStorage.setItem("token", jwt);
-        localStorage.setItem("user", JSON.stringify(user));
-      } else {
-        sessionStorage.setItem("token", jwt);
-        sessionStorage.setItem("user", JSON.stringify(user));
-      }
-
-      navigate("/dashboard");
-    } catch (err: any) {
-      console.error("Login error:", err);
-
-      // Set error messages below inputs
-      setErrors({
-        email: "Invalid email or password",
-        password: "Invalid email or password",
-      });
+      const response = await axios.post(
+        `${apiUrl}/api/auth/local`,
+        {
+          identifier: formData.email,
+          password: formData.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      localStorage.setItem("token", response.data.jwt);
+      navigate("/products");
+    } catch (error) {
+      console.log(error);
     }
+    // Handle your login logic here
+    // console.log("Logging in with:", { email, password });
   };
 
   return (
@@ -64,7 +60,7 @@ const LoginPage = () => {
           Log in to your account to continue
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4">
           {/* Email */}
           <div>
             <label className="block text-sm mb-1">Email</label>

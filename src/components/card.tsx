@@ -1,53 +1,105 @@
 // src/components/Card.tsx
 import React from "react";
-import { X, Facebook, Instagram } from "iconoir-react";
+import {
+  X,
+  ThumbsUp,
+  ThumbsDown,
+  ChatBubble,
+} from "iconoir-react";
 
 interface CardProps {
-  image: string;
-  title: string;
-  name: string;
-  role: string;
+  post: {
+    image: {
+      url: string;
+      alt?: string;
+    };
+    title: string;
+    name: string;
+    createdAt: string;
+  };
+  onClose?: () => void;
+  onLike?: () => void;
+  onDislike?: () => void;
+  onComment?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ image, title, name, role }) => {
-  return (
-    <div className="max-w-xs bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-      {/* Card Image */}
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
+const Card: React.FC<CardProps> = ({
+  post,
+  onClose,
+  onLike,
+  onDislike,
+  onComment,
+}) => {
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 
-      {/* Name and Role */}
-      <div className="p-4 text-center">
-        <h5 className="text-xl font-semibold text-gray-900">{name}</h5>
-        <p className="text-sm text-gray-500 mt-1">{role}</p>
-        <p className="mt-2 text-base font-medium text-gray-800">{title}</p>
+  return (
+    <div className="w-full sm:max-w-md bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-100 transition duration-300">
+      {/* Image */}
+      <div className="relative">
+        <img
+          src={post.image.url}
+          alt={post.image.alt || post.title}
+          className="w-full h-52 object-cover"
+          loading="lazy"
+        />
+        {onClose && (
+          <button
+            className="absolute top-2 right-2 p-2 bg-white/90 rounded-full shadow hover:bg-white transition"
+            aria-label="Close"
+            onClick={onClose}
+          >
+            <X className="w-4 h-4 text-gray-700" />
+          </button>
+        )}
       </div>
-      <div className="flex justify-center gap-3 pb-4">
-        <button
-          title="Close"
-          className="p-2 rounded-full hover:bg-gray-100 transition"
-        >
-          <X className="h-4 w-4 text-gray-600" />
-        </button>
-        <button
-          title="Facebook"
-          className="p-2 rounded-full hover:bg-blue-100 transition"
-        >
-          <Facebook className="h-4 w-4 text-blue-600" />
-        </button>
-        <button
-          title="Instagram"
-          className="p-2 rounded-full hover:bg-pink-100 transition"
-        >
-          <Instagram className="h-4 w-4 text-pink-500" />
-        </button>
+
+      {/* Content */}
+      <div className="p-5 space-y-2">
+        <h2 className="text-xl font-bold text-gray-800">{post.title}</h2>
+        <div className="flex justify-between items-center text-sm text-gray-500">
+          <p>By {post.name}</p>
+          <p>{formatDate(post.createdAt)}</p>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 text-gray-600">
+        <div className="flex gap-4">
+          <button
+            onClick={onLike}
+            className="flex items-center gap-1 hover:text-blue-600 transition"
+            aria-label="Like"
+          >
+            <ThumbsUp className="w-5 h-5" />
+            <span className="text-sm">Like</span>
+          </button>
+
+          <button
+            onClick={onDislike}
+            className="flex items-center gap-1 hover:text-red-500 transition"
+            aria-label="Dislike"
+          >
+            <ThumbsDown className="w-5 h-5" />
+            <span className="text-sm">Dislike</span>
+          </button>
+
+          <button
+            onClick={onComment}
+            className="flex items-center gap-1 hover:text-green-600 transition"
+            aria-label="Comment"
+          >
+            <ChatBubble className="w-5 h-5" />
+            <span className="text-sm">Comment</span>
+          </button>
+        </div>
       </div>
     </div>
-
-
-
   );
 };
 
 export default Card;
-
-
