@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import axios from "axios";
-
 const LoginPage = () => {
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -13,9 +13,6 @@ const LoginPage = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-
-  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -23,7 +20,6 @@ const LoginPage = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setErrors({}); // Clear errors on change
   };
 
   const handleLogin = async (e: any) => {
@@ -69,15 +65,10 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full border-b py-1 focus:outline-none ${
-                errors.email ? "border-red-500" : "border-gray-300 focus:border-green-700"
-              }`}
+              className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1"
               placeholder="Enter your email"
               required
             />
-            {errors.email && (
-              <p className="text-sm text-red-600 mt-1">{errors.email}</p>
-            )}
           </div>
 
           {/* Password */}
@@ -89,9 +80,7 @@ const LoginPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full border-b py-1 pr-8 focus:outline-none ${
-                  errors.password ? "border-red-500" : "border-gray-300 focus:border-green-700"
-                }`}
+                className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1 pr-8"
                 placeholder="Enter your password"
                 required
               />
@@ -103,9 +92,6 @@ const LoginPage = () => {
                 👁️
               </button>
             </div>
-            {errors.password && (
-              <p className="text-sm text-red-600 mt-1">{errors.password}</p>
-            )}
           </div>
 
           {/* Remember me */}
