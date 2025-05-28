@@ -133,7 +133,18 @@ const Home: React.FC = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {latestPosts.map((post) => (
-              <Card post={post} />
+              <Card
+                key={post.id}
+                post={{
+                  image: {
+                    url: post.attributes.image?.data?.attributes?.url || "",
+                    alt: post.attributes.title,
+                  },
+                  title: post.attributes.title,
+                  name: post.attributes.authorName,
+                  createdAt: "", // Provide createdAt if available in your API
+                }}
+              />
             ))}
           </div>
         </div>

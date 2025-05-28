@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-  // Form state
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
-    phonenumber: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // ✅ onChange handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -20,9 +20,36 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData); // Replace with registration logic
+
+    try {
+      const response = await fetch(
+        "http://localhost:1337/api/auth/local/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Registration successful:", data);
+        navigate("/"); // ✅ Redirect to home page
+      } else {
+        console.error("Registration failed:", data);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -36,7 +63,6 @@ const RegisterPage = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Full Name */}
           <div>
             <label className="border-gray-300 text-sm mb-1">Full Name</label>
             <input
@@ -49,11 +75,11 @@ const RegisterPage = () => {
               required
             />
           </div>
-          {/* phone number */}
-          <div>
+
+          {/* <div>
             <label className="block text-sm mb-1">Phone</label>
             <input
-              type=" phonumber"
+              type="text"
               name="phonenumber"
               value={formData.phonenumber}
               onChange={handleChange}
@@ -61,9 +87,8 @@ const RegisterPage = () => {
               placeholder="Enter your phone number"
               required
             />
-          </div>
+          </div> */}
 
-          {/* Email */}
           <div>
             <label className="block text-sm mb-1">Email</label>
             <input
@@ -77,7 +102,6 @@ const RegisterPage = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-sm mb-1">Password</label>
             <div className="relative">
@@ -100,7 +124,6 @@ const RegisterPage = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-lg transition"
@@ -111,7 +134,10 @@ const RegisterPage = () => {
 
         <p className="text-sm text-center mt-4 text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-green-800 font-semibold hover:underline">
+          <a
+            href="/login"
+            className="text-green-800 font-semibold hover:underline"
+          >
             Log In
           </a>
         </p>
