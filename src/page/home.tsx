@@ -1,6 +1,4 @@
-// src/pages/Home.tsx
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import travelBg from "../assets/travel1.jpg";
 import africaImg from "../assets/afirka.png";
 import asiaImg from "../assets/cambodia.png";
@@ -12,6 +10,7 @@ import startblog from "../assets/startblog.png";
 import grow from "../assets/grow blog.png";
 import takecourse from "../assets/take a course.png";
 import Card from "../components/card";
+import useFetch from "../hook/useFetch";
 
 interface BlogPost {
   id: number;
@@ -28,6 +27,8 @@ interface BlogPost {
     };
   };
 }
+
+
 
 interface SectionItem {
   name: string;
@@ -69,23 +70,11 @@ const SectionWithImages: React.FC<SectionWithImagesProps> = ({
 );
 
 const Home: React.FC = () => {
-  const [latestPosts, setLatestPosts] = useState<BlogPost[]>([]);
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      const response = await axios.get(
-        "http://localhost:1337/api/blogs?populate=*"
-      );
-      setLatestPosts(response.data.data);
-    };
-    fetchPost();
-    // axios
-    // .get("http://localhost:1337/api/blogs?populate=*")
-    // .then((res) => setLatestPosts(res.data.data))
-    // .catch((err) => console.error("Failed to fetch blogs:", err));
-  }, []);
-
-  console.log(latestPosts, "post");
+  const {
+    data: latestPosts,
+    loading,
+    error,
+  } = useFetch<BlogPost[]>("http://localhost:1337/api/blogs?populate=*");
 
   const regions = [
     { name: "AFRICA", image: africaImg },
@@ -132,6 +121,7 @@ const Home: React.FC = () => {
             Our <span className="text-blue-500">Latest Posts</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+<<<<<<< HEAD
             {latestPosts.map((post) => (
               <Card
                 key={post.id}
@@ -146,6 +136,17 @@ const Home: React.FC = () => {
                 }}
               />
             ))}
+=======
+            {loading ? (
+              <p className="text-center col-span-full">Loading posts...</p>
+            ) : error ? (
+              <p className="text-center col-span-full text-red-500">
+                Error: {error}
+              </p>
+            ) : (
+              latestPosts?.map((post) => <Card key={post.id} post={post}  />)
+            )}
+>>>>>>> homepage
           </div>
         </div>
       </section>
