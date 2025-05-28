@@ -8,7 +8,7 @@ import Blog from "./page/blog";
 import Contact from "./page/contact";
 import Login from "./page/login";
 import Sponsor from "./page/sponsor";
-import register from "./page/register"; // ✅ Capitalized import
+import Register from "./page/register"; 
 
 const App: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <Route path="/sponsor" element={<Sponsor />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </>
