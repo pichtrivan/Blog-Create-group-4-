@@ -121,22 +121,6 @@ const Home: React.FC = () => {
             Our <span className="text-blue-500">Latest Posts</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-<<<<<<< HEAD
-            {latestPosts.map((post) => (
-              <Card
-                key={post.id}
-                post={{
-                  image: {
-                    url: post.attributes.image?.data?.attributes?.url || "",
-                    alt: post.attributes.title,
-                  },
-                  title: post.attributes.title,
-                  name: post.attributes.authorName,
-                  createdAt: "", // Provide createdAt if available in your API
-                }}
-              />
-            ))}
-=======
             {loading ? (
               <p className="text-center col-span-full">Loading posts...</p>
             ) : error ? (
@@ -146,7 +130,6 @@ const Home: React.FC = () => {
             ) : (
               latestPosts?.map((post) => <Card key={post.id} post={post}  />)
             )}
->>>>>>> homepage
           </div>
         </div>
       </section>
