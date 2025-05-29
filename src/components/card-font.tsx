@@ -8,7 +8,7 @@ interface CardProps {
   authorImage: string;
 }
 
-const Card: React.FC<CardProps> = ({ image, title, name, role, authorImage }) => {
+const CardAuthor: React.FC<CardProps> = ({ image, title, name, role, authorImage }) => {
   return (
     <div className="max-w-xs bg-white rounded-lg overflow-hidden shadow-lg">
       {/* Background Image */}
@@ -38,4 +38,4 @@ const Card: React.FC<CardProps> = ({ image, title, name, role, authorImage }) =>
   );
 };
 
-export default Card;
+export default CardAuthor;

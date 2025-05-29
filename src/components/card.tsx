@@ -1,11 +1,6 @@
 // src/components/Card.tsx
 import React from "react";
-import {
-  X,
-  ThumbsUp,
-  ThumbsDown,
-  ChatBubble,
-} from "iconoir-react";
+import { X, ThumbsUp, ThumbsDown, ChatBubble } from "iconoir-react";
 
 interface CardProps {
   post: {
@@ -14,7 +9,12 @@ interface CardProps {
       alt?: string;
     };
     title: string;
-    name: string;
+    author: {
+      username: string;
+      avatar: {
+        url: string;
+      };
+    };
     createdAt: string;
   };
   onClose?: () => void;
@@ -61,8 +61,13 @@ const Card: React.FC<CardProps> = ({
       {/* Content */}
       <div className="p-5 space-y-2">
         <h2 className="text-xl font-bold text-gray-800">{post.title}</h2>
-        <div className="flex justify-between items-center text-sm text-gray-500">
-          <p>By {post.name}</p>
+        <div className="flex items-center space-x-3 text-sm text-gray-500">
+          <img
+            className="h-12 w-12 rounded-full object-cover"
+            src={post.author.avatar.url}
+            alt={post.author.username}
+          />
+          <p>By {post.author.username}</p>
           <p>{formatDate(post.createdAt)}</p>
         </div>
       </div>
