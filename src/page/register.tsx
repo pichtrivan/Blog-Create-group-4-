@@ -76,19 +76,6 @@ const RegisterPage = () => {
             />
           </div>
 
-          {/* <div>
-            <label className="block text-sm mb-1">Phone</label>
-            <input
-              type="text"
-              name="phonenumber"
-              value={formData.phonenumber}
-              onChange={handleChange}
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-green-700 py-1"
-              placeholder="Enter your phone number"
-              required
-            />
-          </div> */}
-
           <div>
             <label className="block text-sm mb-1">Email</label>
             <input
