@@ -1,26 +1,5 @@
-import BlogCard from "../components/blogcard";
-import The from "../assets/b1.png";
 
-const blogs = [
-  {
-    title: "Koh Kong Krao",
-    date: "Fri May 19 2023",
-    readTime: "5 min read",
-    image: The,
-  },
-  {
-    title: "Best memories of rainforest located in Cardamom Mountain",
-    date: "Tue Oct 31 2023",
-    readTime: "2 min read",
-    image: The,
-  },
-  {
-    title: "Khnang Veal",
-    date: "Wed Jul 26 2023",
-    readTime: "3 min read",
-    image: The,
-  },
-];
+import Card from "../components/card"
 
 export default function BlogSection() {
   return (
@@ -33,9 +12,39 @@ export default function BlogSection() {
         </p>
       </div>
       <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">
-        {blogs.map((blog, index) => (
-          <BlogCard key={index} {...blog} />
-        ))}
+            <Card
+              post={{
+                image: {
+                  url: "https://www.visitsoutheastasia.travel/wp-content/uploads/2022/12/shutterstock_672393745-1024x594.jpg",
+                  alt: "Example Image",
+                },
+                title: "Phnom Kulen National Park",
+                name: "Author Name",
+                createdAt: "2023-01-01",
+              }}
+            />
+            <Card
+              post={{
+                image: {
+                  url: "https://www.visitsoutheastasia.travel/wp-content/uploads/2022/12/Cambodia-5-1024x683.jpg",
+                  alt: "Example Image",
+                },
+                title: "Koh Rong Island",
+                name: "Author Name",
+                createdAt: "2023-01-01",
+              }}
+            />
+            <Card
+              post={{
+                image: {
+                  url: "https://cms.siemreaper.click/uploads/angkor_wat_sunrise_tour_cambodia2712_fa7a0ffa75.jpeg",
+                  alt: "Example Image",
+                },
+                title: "Sample Blog Title",
+                name: "Author Name",
+                createdAt: "2023-01-01",
+              }}
+            />
       </div>
     </section>
   );
