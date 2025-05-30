@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // <-- Import Link from react-router-dom
 import Card from "../components/cardauthor";
 import useFetch from "../hook/useFetch";
 
@@ -24,14 +25,16 @@ const Author: React.FC = () => {
     loading: authorLoading,
     error: authorError,
   } = useFetch<BlogPost[]>(
-    "http://localhost:1337/api/blogs?filters[author][id][$eq]=4&populate=*"
+    "http://localhost:1337/api/blogs?populate[author][populate]=avatar&populate=image&sort=createdAt:desc"
   );
+
+  console.log(authorPosts);
 
   return (
     <section className="py-16 bg-gray-50 w-full">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Posts by <span className="text-blue-500">Author #4</span>
+          Posts by <span className="text-blue-500">Author</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {authorLoading ? (
@@ -41,7 +44,11 @@ const Author: React.FC = () => {
               Error: {authorError}
             </p>
           ) : (
-            authorPosts?.map((post) => <Card key={post.id} post={post} />)
+            authorPosts?.map((post) => (
+              <Link key={post.id} to={`/author/${post.author?.id}`}>
+                <Card post={post} />
+              </Link>
+            ))
           )}
         </div>
       </div>

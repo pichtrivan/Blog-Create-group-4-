@@ -75,7 +75,8 @@ const Home: React.FC = () => {
     loading,
     error,
   } = useFetch<BlogPost[]>("http://localhost:1337/api/blogs?populate[author][populate]=avatar&populate=image&sort=createdAt:desc");
-
+    
+  
   const regions = [
     { name: "AFRICA", image: africaImg },
     { name: "ASIA", image: asiaImg },

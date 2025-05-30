@@ -1,39 +1,18 @@
-import React from 'react';
+import React from "react";
 
 interface CardProps {
-  image: string;
-  title: string;
-  name: string;
-  role: string;
-  authorImage: string;
+  authorImage: string;  // Avatar image URL
+  altText?: string;     // Optional alt text
 }
 
-const CardAuthor: React.FC<CardProps> = ({ image, title, name, role, authorImage }) => {
+const CardAuthor: React.FC<CardProps> = ({ authorImage, altText }) => {
   return (
-    <div className="max-w-xs bg-white rounded-lg overflow-hidden shadow-lg">
-      {/* Background Image */}
-      <img src={image} alt={title} className="w-full h-40 object-cover" />
-      
-      <div className="p-4">
-        {/* Title */}
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        
-        {/* Role */}
-        <p className="text-gray-500 mb-2">{role}</p>
-        
-        {/* Author Info */}
-        <div className="flex items-center mt-4">
-          {/* Author Image */}
-          <img
-            src={authorImage}
-            alt={name}
-            className="w-10 h-10 rounded-full border-2 border-white shadow-md"
-          />
-          
-          {/* Author Name */}
-          <span className="ml-3 text-sm font-medium">{name}</span>
-        </div>
-      </div>
+    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+      <img
+        src={authorImage}
+        alt={altText || "Author avatar"}
+        className="w-full h-full object-cover"
+      />
     </div>
   );
 };

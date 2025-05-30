@@ -38,7 +38,7 @@ const LoginPage = () => {
         }
       );
       localStorage.setItem("token", response.data.jwt);
-      navigate("/products");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
