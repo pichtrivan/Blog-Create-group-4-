@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hook/useFetch";
-import KohKongKraoDetailSection from "../assets/4.png"; // Adjust path if needed
+import KohKongKraoDetailSection from "../assets/afirka.png"; // ✅ this must be a React component
 
 interface BlogDetail {
   id: number;
@@ -21,7 +21,8 @@ interface BlogDetail {
 }
 
 const BlogDetail: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+
   const {
     data,
     loading,
@@ -31,6 +32,7 @@ const BlogDetail: React.FC = () => {
   );
 
   const blog = data?.data;
+  console.log (data,"..auto..,.")
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
@@ -51,7 +53,7 @@ const BlogDetail: React.FC = () => {
             <p>{blog.attributes.content}</p>
           </div>
 
-          {/* Conditionally show Koh Kong Krao section based on title */}
+          {/* Conditionally render extra section */}
           {blog.attributes.title.toLowerCase().includes("koh kong krao") && (
             <KohKongKraoDetailSection />
           )}

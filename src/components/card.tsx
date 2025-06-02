@@ -1,9 +1,10 @@
-// src/components/Card.tsx
 import React from "react";
 import { X, ThumbsUp, ThumbsDown, ChatBubble } from "iconoir-react";
+import { Link } from "react-router-dom"; // Make sure this is imported
 
 interface CardProps {
   post: {
+    id: string; // Added this field
     image: {
       url: string;
       alt?: string;
@@ -67,8 +68,16 @@ const Card: React.FC<CardProps> = ({
             src={post.author.avatar.url}
             alt={post.author.username}
           />
-          <p>By {post.author.username}</p>
-          <p>{formatDate(post.createdAt)}</p>
+          <div>
+            <p>By {post.author.username}</p>
+            <p>{formatDate(post.createdAt)}</p>
+            <Link
+              to={`/blog-detail/${post.id}`}
+              className="text-blue-500 hover:underline text-sm"
+            >
+              Read more
+            </Link>
+          </div>
         </div>
       </div>
 

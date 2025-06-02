@@ -8,21 +8,16 @@ interface Author {
   name: string;
   avatar: string;
   email: string;
-  phone: string;
   profession: string;
   userId: string;
-  bio: string;
 }
 
 const ProfileAuthor: React.FC = () => {
-  // Use `documentID` param now
   const { documentID } = useParams<{ documentID: string }>();
-  console.log(documentID);
-
   const [author, setAuthor] = useState<Author | null>(null);
   const [loading, setLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
-  console.log("blogs", blogs);
+
   useEffect(() => {
     if (!documentID) return;
 
@@ -33,7 +28,6 @@ const ProfileAuthor: React.FC = () => {
         );
 
         const posts = res.data.data;
-        console.log("sssssssssss", res.data);
         setBlogs(posts);
 
         if (posts.length > 0) {
@@ -44,11 +38,8 @@ const ProfileAuthor: React.FC = () => {
             avatar:
               authorData.avatar?.url || "https://i.pravatar.cc/150?img=32",
             email: authorData.email || "No email",
-            phone: authorData.phone || "123 456 7890",
-            profession: authorData.profession || "Web Developer and Designer",
+            profession: authorData.profession || "Web Developer",
             userId: (authorData.username || "user").toLowerCase() + "123",
-            bio: authorData.bio || "No bio available.",
-            
           });
         } else {
           setAuthor(null);
@@ -65,38 +56,54 @@ const ProfileAuthor: React.FC = () => {
   }, [documentID]);
 
   if (loading) return <div className="text-center py-10">Loading...</div>;
-
-  if (!author)
-    return (
-      <div className="text-center py-10 text-red-500">Author not found.</div>
-    );
+  if (!author) return <div className="text-center py-10 text-red-500">Author not found.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
-      <img
-        src={author.avatar}
-        alt={author.name}
-        className="w-40 h-40 rounded-full mx-auto object-cover"
-      />
-      <h1 className="text-3xl font-bold text-center mt-4">{author.name}</h1>
-      <p className="text-center text-gray-600">{author.profession}</p>
-      <p className="mt-4 text-gray-700">{author.bio}</p>
+    <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-100 rounded-lg">
+      {/* Left Sidebar */}
+      <div className="bg-white rounded-lg shadow-md p-6 text-center mt-20">
+        <img src={author.avatar} alt={author.name} className="w-32 h-32 mx-auto rounded-full" />
+        <h2 className="mt-4 text-xl font-bold">{author.name}</h2>
+        <p className="text-sm text-gray-600">{author.profession}</p>
+       
+        <div className="flex justify-center gap-3 mt-4">
+          <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Follow</button>
+          <button className="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400">Message</button>
+        </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 text-gray-700">
-        <div>
-          <strong>Email:</strong> {author.email}
-        </div>
-        <div>
-          <strong>Phone:</strong> {author.phone}
-        </div>
-        <div>
-          <strong>User ID:</strong> {author.userId}
-        </div>
+        {/* Social Links */}
+        <ul className="mt-6 text-left space-y-2 text-sm text-gray-700">
+          <li><strong>Website:</strong> https://bootdey.com</li>
+          <li><strong>Github:</strong> bootdey</li>
+          <li><strong>Twitter:</strong> @bootdey</li>
+          <li><strong>Instagram:</strong> bootdey</li>
+          <li><strong>Facebook:</strong> bootdey</li>
+        </ul>
       </div>
-      <div className="mt-8 grid grid-cols-3 gap-4">
-        {blogs?.map((blog) => (
-          <Card key={blog?.id} post={blog} />
-        ))}
+
+      {/* Right Panel - Personal Info */}
+      <div className="bg-white rounded-lg shadow-md p-6 md:col-span-2 mt-20">
+        <h3 className="text-lg font-semibold mb-4">Profile Details</h3>
+        <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
+          <div><strong>Full Name:</strong> {author.name}</div>
+          <div><strong>Email:</strong> {author.email}</div>
+          <div><strong>Phone:</strong> (239) 816-9029</div>
+          <div><strong>Mobile:</strong> (320) 380-4539</div>
+          <div><strong>Address:</strong> Bay Area, San Francisco, CA</div>
+        </div>
+        <button className="mt-6 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600">Edit</button>
+      </div>
+
+      {/* Project Status */}
+     
+      {/* Blog Posts */}
+      <div className="md:col-span-3 mt-8">
+        <h3 className="text-xl font-bold mb-4">Author's Blog Posts</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {blogs.map((blog) => (
+            <Card key={blog?.id} post={blog} />
+          ))}
+        </div>
       </div>
     </div>
   );

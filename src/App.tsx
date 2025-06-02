@@ -29,7 +29,8 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/author/:documentID" element={<ProfileAuthor />} />
-         <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/blog-detail/:id" element={<BlogDetail />} />
+        {/* <Route path="/blog-detail/:id" element={<BlogDetail />} />          */}
       </Routes>
       <Footer />
     </>
