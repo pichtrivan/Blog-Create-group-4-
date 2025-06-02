@@ -64,10 +64,10 @@ const Card: React.FC<CardProps> = ({
         <div className="flex items-center space-x-3 text-sm text-gray-500">
           <img
             className="h-12 w-12 rounded-full object-cover"
-            src={post.author.avatar.url}
-            alt={post.author.username}
+            src={post.author?.avatar?.url}
+            alt={post.author?.username}
           />
-          <p>By {post.author.username}</p>
+          <p>By {post.author?.username}</p>
           <p>{formatDate(post.createdAt)}</p>
         </div>
       </div>

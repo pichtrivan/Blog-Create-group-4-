@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+// Define your API URL here or import from a config file
+const apiUrl = "http://localhost:1337"; // Change this to your actual API URL
+
 const LoginPage = () => {
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,7 +23,7 @@ const LoginPage = () => {
     }));
   };
 
-  const handleLogin = async (e: any) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(

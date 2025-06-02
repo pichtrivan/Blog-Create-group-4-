@@ -28,8 +28,6 @@ interface BlogPost {
   };
 }
 
-
-
 interface SectionItem {
   name: string;
   image: string;
@@ -46,7 +44,7 @@ const SectionWithImages: React.FC<SectionWithImagesProps> = ({
 }) => (
   <section className="py-16 bg-gray-100">
     <div className="max-w-7xl mx-auto px-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
+      {/* <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {items.map((item, index) => (
           <div
@@ -54,13 +52,13 @@ const SectionWithImages: React.FC<SectionWithImagesProps> = ({
             className="relative h-64 w-full rounded overflow-hidden group cursor-pointer shadow-lg"
           >
             <img
-              src={item.image}
-              alt={item.name}
+              src={item?.image}
+              alt={item?.name}
               className="h-full w-full object-cover transform transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition duration-300" />
             <h3 className="absolute inset-0 flex items-center justify-center text-white font-extrabold text-xl sm:text-2xl text-center">
-              {item.name}
+              {item?.name}
             </h3>
           </div>
         ))}
@@ -74,7 +72,9 @@ const Home: React.FC = () => {
     data: latestPosts,
     loading,
     error,
-  } = useFetch<BlogPost[]>("http://localhost:1337/api/blogs?populate[author][populate]=avatar&populate=image&sort=createdAt:desc");
+  } = useFetch<BlogPost[]>(
+    "http://localhost:1337/api/blogs?populate[author][populate]=avatar&populate=image&sort=createdAt:desc"
+  );
 
   const regions = [
     { name: "AFRICA", image: africaImg },
@@ -128,7 +128,7 @@ const Home: React.FC = () => {
                 Error: {error}
               </p>
             ) : (
-              latestPosts?.map((post) => <Card key={post.id} post={post}  />)
+              latestPosts?.map((post) => <Card key={post.id} post={post} />)
             )}
           </div>
         </div>
