@@ -36,7 +36,7 @@ const App: React.FC = () => {
       </Routes>
       <Footer />
     </>
-  );
+  );http://localhost:1337/api/blogs/${id}
 };
 
 export default App;
